@@ -37,23 +37,38 @@ stages:
               environmentServiceNameAzureRM: 'newservice'
  
   - stage: apply
-    condition: 
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
     displayName: terraformapply
     jobs:
-      - job: 
-        displayName: myjob
+      - job: approval
+        displayName: Approval
+        pool: server
         steps:
-          - task: TerraformInstaller@1
-            displayName: terraforminstall
+          - task: ManualValidation@1
             inputs:
-              terraformVersion: 'latest'
-              
-      - job: 
-        displayName: applyjob
+              notifyUsers: 'abc@abcjs'
+              approvers: 'abc'
+
+      - job: apply
+        dependsOn: approval
+        displayName: apply
         steps:
           - task: TerraformTask@5
-            displayName: terraform apply
+            displayName: terraforminit
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'newservice'
+              backendAzureRmStorageAccountName: 'mystoagebhakua'
+              backendAzureRmContainerName: 'mycontainer'
+              backendAzureRmKey: 'terraform.tfstate'
+
+          - task: TerraformTask@5
             inputs:
               provider: 'azurerm'
               command: 'apply'
               environmentServiceNameAzureRM: 'newservice'
+          
+              
+
+            
