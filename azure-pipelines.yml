@@ -5,6 +5,17 @@ trigger:
 pool: mypool
 
 stages:
+  - stage: Scan
+    jobs:
+      - job:
+        displayName: Scan
+        steps:
+          - task: AzurePowerShell@5
+            inputs:
+              azureSubscription: 'newservice'
+              ScriptType: 'InlineScript'
+              Inline: 'tflint --recursive'
+
   - stage: Plan
     displayName: terraformplan
     jobs:
