@@ -47,7 +47,6 @@ stages:
           - task: ManualValidation@1
             inputs:
               notifyUsers: 'abc@abcjs'
-              approvers: 'abc'
 
       - job: apply
         dependsOn: approval
