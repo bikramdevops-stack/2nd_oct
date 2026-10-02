@@ -14,7 +14,7 @@ stages:
             inputs:
               azureSubscription: 'newservice'
               ScriptType: 'InlineScript'
-              Inline: 'tflint --recursive'
+              Inline: 'tflint --recursive -force'
 
   - stage: Plan
     displayName: terraformplan
@@ -48,7 +48,7 @@ stages:
               environmentServiceNameAzureRM: 'newservice'
  
   - stage: apply
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     displayName: terraformapply
     jobs:
       - job: approval
