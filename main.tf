@@ -23,6 +23,16 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
+resource "azurerm_resource_group" "rg" {
+  name     = "hi"
+  location = "east us"
+
+  tags = {
+    owner = "risi"
+  }
+}
+
+
 resource "azurerm_storage_account" "st" {
   name                     = "stostosto"
   resource_group_name      = azurerm_resource_group.rg.name
