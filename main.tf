@@ -29,12 +29,30 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
+resource "azurerm_resource_group" "rig" {
+  name     = "gelo"
+  location = "east us"
+
+  tags = {
+    owner = "rishii"
+  }
+}
+
+resource "azurerm_resource_group" "mig" {
+  name     = "yeelo"
+  location = "east us"
+
+  tags = {
+    owner = "rishii"
+  }
+}
+
 resource "azurerm_resource_group" "rii" {
   name     = "hi"
   location = "east us"
 
   tags = {
-    owner = "risi"
+    owner = "riski"
   }
 }
 
