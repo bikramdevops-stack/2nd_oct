@@ -1,13 +1,12 @@
 trigger:
- branches:
-  include:
-  - main
+ - feature/*
+ - main
 
 pool: mypool
 
 stages:
-  - stage: 
-    displayName: terraformstage
+  - stage: Plan
+    displayName: terraformplan
     jobs:
       - job: 
         displayName: myjob
@@ -36,6 +35,22 @@ stages:
               provider: 'azurerm'
               command: 'plan'
               environmentServiceNameAzureRM: 'newservice'
+ 
+  - stage: apply
+    condition: 
+    displayName: terraformapply
+    jobs:
+      - job: 
+        displayName: myjob
+        steps:
+          - task: TerraformInstaller@1
+            displayName: terraforminstall
+            inputs:
+              terraformVersion: 'latest'
+              
+      - job: 
+        displayName: applyjob
+        steps:
           - task: TerraformTask@5
             displayName: terraform apply
             inputs:
