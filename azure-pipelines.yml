@@ -13,9 +13,11 @@ stages:
         displayName: myjob
         steps:
           - task: TerraformInstaller@1
+            displayName: terraforminstall
             inputs:
               terraformVersion: 'latest'
           - task: TerraformTask@5
+            displayName: terraforminit
             inputs:
               provider: 'azurerm'
               command: 'init'
@@ -24,15 +26,18 @@ stages:
               backendAzureRmContainerName: 'mycontainer'
               backendAzureRmKey: 'terraform.tfstate'
           - task: TerraformTask@5
+            displayName: terraformvalidate
             inputs:
               provider: 'azurerm'
               command: 'validate'
           - task: TerraformTask@5
+            displayName: terraformplan
             inputs:
               provider: 'azurerm'
               command: 'plan'
               environmentServiceNameAzureRM: 'Devops_service'
           - task: TerraformTask@5
+            displayName: terraform apply
             inputs:
               provider: 'azurerm'
               command: 'apply'
