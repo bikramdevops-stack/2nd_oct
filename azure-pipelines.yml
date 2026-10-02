@@ -10,11 +10,10 @@ stages:
       - job:
         displayName: Scan
         steps:
-          - task: AzurePowerShell@5
+          - task: PowerShell@2
             inputs:
-              azureSubscription: 'newservice'
-              ScriptType: 'InlineScript'
-              Inline: 'tflint --recursive -force'
+              targetType: 'inline'
+              script: 'tflint --recursive -force'
 
   - stage: Plan
     displayName: terraformplan
