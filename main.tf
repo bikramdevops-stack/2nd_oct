@@ -83,6 +83,17 @@ resource "azurerm_resource_group" "riyyyiiii" {
   }
 }
 
+resource "azurerm_resource_group" "riyyyiuuuiii" {
+  name     = "heetaatyyuuuteei"
+  location = "east us"
+
+  tags = {
+    owner = "rismaauuiii"
+  }
+}
+
+
+
 
 
 resource "azurerm_storage_account" "st" {
