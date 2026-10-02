@@ -5,6 +5,17 @@ trigger:
 pool: mypool
 
 stages:
+  - stage: scan
+    jobs:
+      - job: 
+        displayName: Scan
+        steps:
+          - task: PowerShell@2
+            inputs:
+              targetType: 'inline'
+              script: 'tflint --recursive --force'
+        
+
   - stage: plan
 
     jobs:
@@ -53,9 +64,9 @@ stages:
               notifyUsers: 'abcansd@erv'
 
       - job: apply
+        dependsOn: Manualapproval
         steps:
           - task: TerraformTask@5
-            displayName: Terraform init
             inputs:
               provider: 'azurerm'
               command: 'init'
@@ -69,3 +80,5 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               environmentServiceNameAzureRM: 'newservice'
+        
+        
