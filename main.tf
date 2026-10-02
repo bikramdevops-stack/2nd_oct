@@ -29,7 +29,7 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
-resource "azurerm_resource_group" "rg" {
+resource "azurerm_resource_group" "rii" {
   name     = "hi"
   location = "east us"
 
