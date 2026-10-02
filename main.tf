@@ -29,7 +29,6 @@ resource "azurerm_storage_account" "st" {
   location                 = "east us"
   account_tier             = "Standard"
   account_replication_type = "LRS"
-
 }
 
 
