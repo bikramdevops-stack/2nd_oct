@@ -65,6 +65,25 @@ resource "azurerm_resource_group" "riyi" {
   }
 }
 
+resource "azurerm_resource_group" "riyiiii" {
+  name     = "heettteei"
+  location = "east us"
+
+  tags = {
+    owner = "rismiii"
+  }
+}
+
+resource "azurerm_resource_group" "riyyyiiii" {
+  name     = "heetaatteei"
+  location = "east us"
+
+  tags = {
+    owner = "rismaaiii"
+  }
+}
+
+
 
 resource "azurerm_storage_account" "st" {
   name                     = "stostosto"
