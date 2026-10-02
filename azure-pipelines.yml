@@ -1,9 +1,9 @@
 trigger:
  branches:
   include:
-  -main
+  - main
 
-pool:mypool
+pool: mypool
 
 stages:
   - stage: 
