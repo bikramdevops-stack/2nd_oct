@@ -92,6 +92,15 @@ resource "azurerm_resource_group" "riyyyiuuuiii" {
   }
 }
 
+resource "azurerm_resource_group" "riyyyiudsaduuiii" {
+  name     = "heetaatyyuuadsuteei"
+  location = "east us"
+
+  tags = {
+    owner = "rismaauaduiii"
+  }
+}
+
 
 
 
