@@ -5,71 +5,63 @@ trigger:
 pool: mypool
 
 stages:
-  - stage: Scan
-    jobs:
-      - job:
-        displayName: Scan
-        steps:
-          - task: PowerShell@2
-            inputs:
-              targetType: 'inline'
-              script: 'tflint --recursive --force'
+  - stage: plan
 
-  - stage: Plan
-    displayName: terraformplan
     jobs:
-      - job: 
-        displayName: myjob
+      - job: Plan
+        displayName: Terraform Plan
         steps:
           - task: TerraformInstaller@1
-            displayName: terraforminstall
+            displayName: Terraform install
             inputs:
               terraformVersion: 'latest'
+            
           - task: TerraformTask@5
-            displayName: terraforminit
+            displayName: Terraform init
             inputs:
               provider: 'azurerm'
               command: 'init'
               backendServiceArm: 'newservice'
-              backendAzureRmStorageAccountName: 'mystoagebhakua'
-              backendAzureRmContainerName: 'mycontainer'
+              backendAzureRmStorageAccountName: 'devopsstorage11'
+              backendAzureRmContainerName: 'bikramcontainer'
               backendAzureRmKey: 'terraform.tfstate'
+
           - task: TerraformTask@5
-            displayName: terraformvalidate
+            displayName: Terraform validate
             inputs:
               provider: 'azurerm'
               command: 'validate'
+
           - task: TerraformTask@5
-            displayName: terraformplan
+            displayName: Terraform plan
             inputs:
               provider: 'azurerm'
               command: 'plan'
               environmentServiceNameAzureRM: 'newservice'
- 
-  - stage: apply
+
+  - stage: Apply
     condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
-    displayName: terraformapply
+    displayName: Apply
+    
     jobs:
-      - job: approval
+      - job: Manualapproval
         displayName: Approval
         pool: server
         steps:
           - task: ManualValidation@1
             inputs:
-              notifyUsers: 'abc@abcjs'
+              notifyUsers: 'abcansd@erv'
 
       - job: apply
-        dependsOn: approval
-        displayName: apply
         steps:
           - task: TerraformTask@5
-            displayName: terraforminit
+            displayName: Terraform init
             inputs:
               provider: 'azurerm'
               command: 'init'
               backendServiceArm: 'newservice'
-              backendAzureRmStorageAccountName: 'mystoagebhakua'
-              backendAzureRmContainerName: 'mycontainer'
+              backendAzureRmStorageAccountName: 'devopsstorage11'
+              backendAzureRmContainerName: 'bikramcontainer'
               backendAzureRmKey: 'terraform.tfstate'
 
           - task: TerraformTask@5
@@ -77,7 +69,3 @@ stages:
               provider: 'azurerm'
               command: 'apply'
               environmentServiceNameAzureRM: 'newservice'
-          
-              
-
-            
