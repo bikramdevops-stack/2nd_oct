@@ -21,7 +21,7 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'init'
-              backendServiceArm: 'Devops_service'
+              backendServiceArm: 'newservice'
               backendAzureRmStorageAccountName: 'mystoagebhakua'
               backendAzureRmContainerName: 'mycontainer'
               backendAzureRmKey: 'terraform.tfstate'
@@ -35,10 +35,10 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'plan'
-              environmentServiceNameAzureRM: 'Devops_service'
+              environmentServiceNameAzureRM: 'newservice'
           - task: TerraformTask@5
             displayName: terraform apply
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              environmentServiceNameAzureRM: 'Devops_service'
+              environmentServiceNameAzureRM: 'newservice'
